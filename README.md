@@ -6,9 +6,12 @@
 
 # Architecture & Technology Stack
 
+The purpose of this demo is to illustrate various architectural designs,
+and the Apache frameworks/libraries/runtimes that help build them.
+
 ## Modulith: A Modular Monolith
 
-## Apache Karaf
+## Apache Karaf: Modulith Runtime
 
 ## Apache CXF: JAX-RS
 
