@@ -29,9 +29,11 @@
     </parent>
 
     <artifactId>adminWar</artifactId>
+    <packaging>war</packaging>
 
     <name>Modulith Demo :: admin :: WAR</name>
     <description>Admin WAR</description>
+
 
     <properties>
     </properties>
