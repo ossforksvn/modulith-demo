@@ -32,6 +32,7 @@
 
     <name>Modulith Demo :: admin :: API</name>
     <description>Admin API</description>
+    <packaging>bundle</packaging>
 
     <properties>
     </properties>

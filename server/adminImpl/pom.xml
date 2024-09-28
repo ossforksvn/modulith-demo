@@ -32,6 +32,7 @@
 
     <name>Modulith Demo :: admin :: Impl</name>
     <description>Admin Impl</description>
+    <packaging>bundle</packaging>
 
     <properties>
     </properties>

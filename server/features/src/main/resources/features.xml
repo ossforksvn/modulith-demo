@@ -34,7 +34,7 @@
     <feature name="_modulith-admin" version="${project.version}">
         <bundle dependency="true">mvn:com.savoir.modulith/adminApi/${project.version}</bundle>
         <bundle dependency="true">mvn:com.savoir.modulith/adminImpl/${project.version}</bundle>
-        <bundle dependency="true">mvn:com.savoir.modulith/adminWar/${project.version}</bundle>
+        <bundle dependency="true">webbundle:mvn:com.savoir.modulith/adminWar/${project.version}/war?Web-ContextPath=admin-console</bundle>
     </feature>
 
     <feature name="modulith-demo" version='${project.version}'>
@@ -42,6 +42,7 @@
         <feature dependency="true">aries-blueprint</feature>
         <feature dependency="true" prerequisite="true">cxf-core</feature>
         <feature dependency="true" prerequisite="true">cxf-jaxrs</feature>
+        <feature dependency="true" prerequisite="true">war</feature>
         <conditional>
             <condition>cxf-jaxrs</condition>
             <feature version="${project.version}">__modulith-application-deps</feature>
