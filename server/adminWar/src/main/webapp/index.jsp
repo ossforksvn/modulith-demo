@@ -1,3 +1,9 @@
+<%@ page import="java.io.InputStreamReader" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.net.URLConnection" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.util.Date" %>
+
 <html>
 <!--
   Admin Console demo page.
@@ -11,14 +17,24 @@
             float: left;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 
 <body>
     <h1>Admin Console</h1>
-    <p>It is now <%= new java.util.Date() %></p>
+    <p>
+        <%
+        String recieve;
+        StringBuilder buffer = new StringBuilder();
+        URL jsonpage = new URL("http://127.0.0.1:8181/cxf/admin/status");
+        URLConnection urlcon = jsonpage.openConnection();
+        BufferedReader buffread = new BufferedReader(new InputStreamReader(urlcon.getInputStream()));
+        while ((recieve = buffread.readLine()) != null)
+            buffer.append(recieve);
+        buffread.close();
+        %>
+        <%= "Game State: " + buffer %>
+        <!--Placeholder code  -->
+    </p>
 </body>
-
-<!-- https://api.jquery.com/jQuery.getJSON/ -->
 
 </html>

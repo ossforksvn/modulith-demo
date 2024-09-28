@@ -27,6 +27,12 @@ and the Apache frameworks/libraries/runtimes that help build them.
 
 # Build and run the demo.
 
+## Test APIs
+
+``` bash
+curl -X GET -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/admin/status"
+```
+
 # Conclusions
 
 # About the Authors

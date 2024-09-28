@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Override
-    @Path("/")
+    @Path("/status")
     @Produces("application/json")
     @GET
     public StatusResponse getStatus() {
