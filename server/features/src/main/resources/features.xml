@@ -16,33 +16,46 @@
   ~ limitations under the License.
   -->
 
-<features name="application" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0">
+<features name="application" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.4.0 ">
 
     <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
 
     <feature name="_modulith-application-deps" version="${project.version}">
-        <requirement>osgi.service;effective:=active;filter:=(objectClass=org.osgi.service.http.HttpService)</requirement>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.google.guava/guava/${guava.version}</bundle>
-        <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
-    </feature>
-
-    <feature name="_modulith-admin" version="${project.version}">
-        <bundle dependency="true">mvn:com.savoir.modulith/adminApi/${project.version}</bundle>
-        <bundle dependency="true">mvn:com.savoir.modulith/adminImpl/${project.version}</bundle>
-        <bundle dependency="true">webbundle:mvn:com.savoir.modulith/adminWar/${project.version}/war?Web-ContextPath=admin-console</bundle>
-    </feature>
-
-    <feature name="modulith-demo" version='${project.version}'>
         <feature dependency="true">http</feature>
         <feature dependency="true">aries-blueprint</feature>
         <feature dependency="true" prerequisite="true">cxf-core</feature>
         <feature dependency="true" prerequisite="true">cxf-jaxrs</feature>
         <feature dependency="true" prerequisite="true">war</feature>
+        <requirement>osgi.service;effective:=active;filter:=(objectClass=org.osgi.service.http.HttpService)
+        </requirement>
+        <conditional>
+            <condition>http</condition>
+            <condition>aries-blueprint</condition>
+            <condition>cxf-core</condition>
+            <condition>cxf-jaxrs</condition>
+            <condition>war</condition>
+            <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
+            <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+            <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+            <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
+            <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
+            <!-- Do we need the rest? -->
+            <bundle dependency="true">mvn:com.google.guava/guava/${guava.version}</bundle>
+            <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
+        </conditional>
+    </feature>
+
+    <feature name="_modulith-admin" version="${project.version}">
+        <bundle dependency="true">mvn:com.savoir.modulith/adminApi/${project.version}</bundle>
+        <bundle dependency="true">mvn:com.savoir.modulith/adminImpl/${project.version}</bundle>
+        <bundle dependency="true">
+            webbundle:mvn:com.savoir.modulith/adminWar/${project.version}/war?Web-ContextPath=admin-console
+        </bundle>
+    </feature>
+
+    <feature name="modulith-demo" version='${project.version}'>
         <conditional>
             <condition>cxf-jaxrs</condition>
             <feature version="${project.version}">__modulith-application-deps</feature>

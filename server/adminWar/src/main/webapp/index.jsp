@@ -2,7 +2,6 @@
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.net.URLConnection" %>
 <%@ page import="java.net.URL" %>
-<%@ page import="java.util.Date" %>
 
 <html>
 <!--
@@ -33,7 +32,6 @@
         buffread.close();
         %>
         <%= "Game State: " + buffer %>
-        <!--Placeholder code  -->
     </p>
 </body>
 
