@@ -16,4 +16,6 @@
 package com.savoir.modulith.home.api;
 
 public interface HomeService {
+
+    int getActiveGamesCount();
 }

@@ -13,16 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.savoir.modulith.game.api;
+package com.savoir.modulith.home.impl;
 
-import java.util.List;
-import java.util.UUID;
+import com.savoir.modulith.home.api.HomeService;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public interface GameService {
+@Path("/")
+public class HomeServiceImpl implements HomeService {
 
-    Game newGame();
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeServiceImpl.class);
 
-    Game joinGame(UUID gameId);
-
-    List<Game> getActiveGames();
+    @Override
+    @Path("/getActiveGamesCount")
+    @Produces("application/json")
+    @GET
+    public int getActiveGamesCount() {
+        LOGGER.info("getActiveGamesCount");
+        return 0;
+    }
 }

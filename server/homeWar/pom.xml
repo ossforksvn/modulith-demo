@@ -32,6 +32,7 @@
 
     <name>Modulith Demo :: home :: WAR</name>
     <description>Home WAR</description>
+    <packaging>war</packaging>
 
     <properties>
     </properties>

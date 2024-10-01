@@ -32,6 +32,7 @@
 
     <name>Modulith Demo :: game :: API</name>
     <description>Game API</description>
+    <packaging>bundle</packaging>
 
     <properties>
 

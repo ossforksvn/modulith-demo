@@ -55,11 +55,26 @@
         </bundle>
     </feature>
 
+    <feature name="_modulith-game" version="${project.version}">
+        <bundle dependency="true">mvn:com.savoir.modulith/gameApi/${project.version}</bundle>
+        <bundle dependency="true">mvn:com.savoir.modulith/gameImpl/${project.version}</bundle>
+    </feature>
+
+    <feature name="_modulith-home" version="${project.version}">
+        <bundle dependency="true">mvn:com.savoir.modulith/homeApi/${project.version}</bundle>
+        <bundle dependency="true">mvn:com.savoir.modulith/homeImpl/${project.version}</bundle>
+        <bundle dependency="true">
+            webbundle:mvn:com.savoir.modulith/homeWar/${project.version}/war?Web-ContextPath=home
+        </bundle>
+    </feature>
+
     <feature name="modulith-demo" version='${project.version}'>
         <conditional>
             <condition>cxf-jaxrs</condition>
-            <feature version="${project.version}">__modulith-application-deps</feature>
-            <feature version="${project.version}">__modulith-admin</feature>
+            <feature version="${project.version}">_modulith-application-deps</feature>
+            <feature version="${project.version}">_modulith-admin</feature>
+            <feature version="${project.version}">_modulith-home</feature>
+            <feature version="${project.version}">_modulith-game</feature>
         </conditional>
 
     </feature>

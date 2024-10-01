@@ -16,8 +16,8 @@
 package com.savoir.modulith.admin.impl;
 
 import com.savoir.modulith.admin.api.AdminService;
-
 import com.savoir.modulith.admin.api.StatusResponse;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import org.slf4j.Logger;
