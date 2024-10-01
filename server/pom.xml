@@ -55,18 +55,13 @@
         <module>services</module>
 
         <!-- Game API and Impl -->
-        <module>gameApi</module>
-        <module>gameImpl</module>
+        <module>game</module>
 
         <!-- Game home page and services. -->
-        <module>homeWar</module>
-        <module>homeApi</module>
-        <module>homeImpl</module>
+        <module>home</module>
 
         <!-- Admin home page and services. -->
-        <module>adminWar</module>
-        <module>adminApi</module>
-        <module>adminImpl</module>
+        <module>admin</module>
 
         <!-- Apache Karaf Features Descriptor -->
         <module>features</module>

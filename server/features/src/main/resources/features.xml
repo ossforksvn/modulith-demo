@@ -41,13 +41,14 @@
             <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
-            <!-- Do we need the rest? -->
+            <!-- Do we need the rest?
             <bundle dependency="true">mvn:com.google.guava/guava/${guava.version}</bundle>
             <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
+            -->
         </conditional>
     </feature>
 
-    <feature name="_modulith-admin" version="${project.version}">
+    <feature name="modulith-admin" version="${project.version}">
         <bundle dependency="true">mvn:com.savoir.modulith/adminApi/${project.version}</bundle>
         <bundle dependency="true">mvn:com.savoir.modulith/adminImpl/${project.version}</bundle>
         <bundle dependency="true">
@@ -55,12 +56,12 @@
         </bundle>
     </feature>
 
-    <feature name="_modulith-game" version="${project.version}">
+    <feature name="modulith-game" version="${project.version}">
         <bundle dependency="true">mvn:com.savoir.modulith/gameApi/${project.version}</bundle>
         <bundle dependency="true">mvn:com.savoir.modulith/gameImpl/${project.version}</bundle>
     </feature>
 
-    <feature name="_modulith-home" version="${project.version}">
+    <feature name="modulith-home" version="${project.version}">
         <bundle dependency="true">mvn:com.savoir.modulith/homeApi/${project.version}</bundle>
         <bundle dependency="true">mvn:com.savoir.modulith/homeImpl/${project.version}</bundle>
         <bundle dependency="true">
@@ -69,12 +70,12 @@
     </feature>
 
     <feature name="modulith-demo" version='${project.version}'>
+        <feature version="${project.version}">_modulith-application-deps</feature>
         <conditional>
-            <condition>cxf-jaxrs</condition>
-            <feature version="${project.version}">_modulith-application-deps</feature>
-            <feature version="${project.version}">_modulith-admin</feature>
-            <feature version="${project.version}">_modulith-home</feature>
-            <feature version="${project.version}">_modulith-game</feature>
+            <condition>_modulith-application-deps</condition>
+            <feature version="${project.version}">modulith-admin</feature>
+            <feature version="${project.version}">modulith-home</feature>
+            <feature version="${project.version}">modulith-game</feature>
         </conditional>
 
     </feature>
