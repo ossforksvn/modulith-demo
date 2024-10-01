@@ -15,6 +15,8 @@
  */
 package com.savoir.modulith;
 
+import com.savoir.modulith.game.api.Game;
+import java.util.Optional;
 import java.util.UUID;
 import javafx.application.Application;
 import javafx.application.Preloader;
@@ -23,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -39,17 +42,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.ws.rs.core.Response;
+import org.apache.cxf.jaxrs.client.WebClient;
+
 /**
  * Modulith Game Demo
  */
 public class ModulithGame extends Application {
 
+    private ChoiceDialog<String> choiceDialog = new ChoiceDialog();
     private TextInputDialog td = new TextInputDialog("Name Here");
     private TextArea output = new TextArea();
-    private TextField input = new TextField();
+    private TextField input = new TextField("Chat here...");
     private Pane pane = new Pane();
     private String userName = null;
-    private UUID gameId = null;
+    private String gameId = null;
 
     //Initialize Modulith Client
     @Override
@@ -78,6 +85,14 @@ public class ModulithGame extends Application {
         chat.setPadding(new Insets(15));
         chat.setSpacing(10);
         chat.getChildren().addAll(output, input);
+
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                //TODO Send to server
+                output.appendText(userName + ": " + input.getText() + "\n");
+            }
+        };
+        input.setOnAction(event);
 
         //TODO Pane will contain the game
         HBox hb = new HBox();
@@ -128,9 +143,19 @@ public class ModulithGame extends Application {
                     td.showAndWait();
                     userName = td.getEditor().getText();
                 }
-                //TODO get new game from server
+                try {
+                    WebClient webClient = WebClient.create("http://localhost:8181/cxf/game/newGame");
+                    Response respGet = webClient.get();
+                    Game game =  respGet.readEntity(Game.class);
+                    gameId = game.getId();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+
                 output.clear();
-                output.appendText("New Game for " + userName);
+                output.appendText("New Game for " + userName + "\n");
+                output.appendText("GameId: " + gameId + "\n");
+                output.appendText("Awaiting additional players...\n");
                 pane.setVisible(true);
                 input.setVisible(true);
             }
@@ -143,10 +168,13 @@ public class ModulithGame extends Application {
                     td.showAndWait();
                     userName = td.getEditor().getText();
                 }
+                choiceDialog.setTitle("Find Game");
                 //TODO get available gets from server
-                //TODO have user chose their game.
+                choiceDialog = new ChoiceDialog<>(UUID.randomUUID().toString(),UUID.randomUUID().toString());
+                Optional<String> result = choiceDialog.showAndWait();
+                result.ifPresent(s -> gameId = s);
                 output.clear();
-                output.appendText(userName + " Joining Game...");
+                output.appendText(userName + " Joining Game: " + gameId + "\n");
                 pane.setVisible(true);
                 input.setVisible(true);
             }

@@ -26,9 +26,17 @@ The purpose of this demo is to illustrate various architectural designs, and the
 
 === Test APIs
 
+Verify Admin Service:
 [,bash,num]
 ----
 curl -X GET -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/admin/status"
+----
+
+Verify Game Service:
+[,bash,num]
+----
+ curl -X GET -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/game/newGame"
+
 ----
 
 == Conclusions

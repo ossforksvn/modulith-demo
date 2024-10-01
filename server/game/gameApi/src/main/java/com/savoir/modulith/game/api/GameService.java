@@ -16,13 +16,12 @@
 package com.savoir.modulith.game.api;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface GameService {
 
     Game newGame();
 
-    Game joinGame(UUID gameId);
+    Game joinGame(String gameId);
 
     List<Game> getActiveGames();
 }

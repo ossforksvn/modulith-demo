@@ -41,10 +41,6 @@
             <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
-            <!-- Do we need the rest?
-            <bundle dependency="true">mvn:com.google.guava/guava/${guava.version}</bundle>
-            <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
-            -->
         </conditional>
     </feature>
 

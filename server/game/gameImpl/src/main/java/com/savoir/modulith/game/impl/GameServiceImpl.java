@@ -45,9 +45,9 @@ public class GameServiceImpl implements GameService {
     @Path("/joinGame")
     @Produces("application/json")
     @GET
-    public Game joinGame(UUID gameId) {
+    public Game joinGame(String gameId) {
         LOGGER.info("Join game: " + gameId.toString());
-        return null;
+        return new Game(); //TODO get state.
     }
 
     @Override
