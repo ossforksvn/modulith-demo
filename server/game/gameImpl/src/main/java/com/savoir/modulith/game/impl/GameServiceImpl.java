@@ -16,6 +16,7 @@
 package com.savoir.modulith.game.impl;
 
 import com.savoir.modulith.game.api.ActiveGames;
+import com.savoir.modulith.game.api.GameMessage;
 import com.savoir.modulith.game.api.GameService;
 import com.savoir.modulith.game.api.Game;
 
@@ -96,8 +97,8 @@ public class GameServiceImpl implements GameService {
     @Path("/sendGameMessage")
     @Consumes("application/json")
     @POST
-    public void sendGameMessage(String gameId, String message) {
-        LOGGER.info("Send game: " + gameId + " message: " + message);
+    public void sendGameMessage(GameMessage gameMessage) {
+        LOGGER.info("Send game: " + gameMessage.getGameId() + " message: " + gameMessage.getMessage());
         //TODO Send to some service.
     }
 

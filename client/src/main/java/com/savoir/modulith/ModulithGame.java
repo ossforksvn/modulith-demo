@@ -15,8 +15,10 @@
  */
 package com.savoir.modulith;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.savoir.modulith.game.api.ActiveGames;
 import com.savoir.modulith.game.api.Game;
+import com.savoir.modulith.game.api.GameMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,8 +46,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.client.WebClient;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  * Modulith Game Demo
@@ -80,7 +84,7 @@ public class ModulithGame extends Application {
 
         VBox chat = new VBox();
         output.setPadding(Insets.EMPTY);
-        output.setPrefSize(400, 300);
+        output.setPrefSize(400, 400); //Sets size of Chat
         output.setText("Welcome to Modulith!");
         input.setPadding(Insets.EMPTY);
         input.setVisible(false);
@@ -90,8 +94,17 @@ public class ModulithGame extends Application {
 
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                //TODO Send to server
-                output.appendText(userName + ": " + input.getText() + "\n");
+                try {
+                    WebClient webClient = WebClient.create("http://localhost:8181/cxf/game/sendGameMessage")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .type(MediaType.APPLICATION_JSON);;
+                    GameMessage gameMessage = new GameMessage(gameId, input.getText());
+                    ObjectMapper mapper = new ObjectMapper();
+                    webClient.post(mapper.writeValueAsString(gameMessage));
+                } catch (Exception ignored) {
+                    //Ignore
+                }
+                input.setText("");
             }
         };
         input.setOnAction(event);
@@ -109,7 +122,7 @@ public class ModulithGame extends Application {
 
         VBox root = new VBox(mb, hb);
         root.setPadding(new Insets(15));
-        root.setPrefSize(640, 480);
+        root.setPrefSize(1200, 480);
         return root;
     }
 
@@ -192,6 +205,14 @@ public class ModulithGame extends Application {
 
         EventHandler<ActionEvent> exitGame = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
+                if (gameId != null) {
+                    try {
+                        WebClient webClient = WebClient.create("http://localhost:8181/cxf/game/endGame");
+                        webClient.invoke("DELETE", gameId);
+                    } catch (Exception exception) {
+                        throw new RuntimeException(exception);
+                    }
+                }
                 System.exit(0);
             }
         };

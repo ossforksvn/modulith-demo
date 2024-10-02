@@ -30,7 +30,7 @@ public interface GameService {
 
     void endGame(String gameId);
 
-    void sendGameMessage(String gameId, String message);
+    void sendGameMessage(GameMessage gameMessage);
 
     String getGameMessage(String gameId);
 }

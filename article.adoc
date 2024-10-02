@@ -39,6 +39,14 @@ Verify Game Service:
 
 ----
 
+Verify the message service:
+[,bash,num]
+----
+curl -X POST -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/game/sendGameMessage" --data "{\"gameMessage\":{\"gameId\":\"123\",\"message\":\
+"test\"}}"
+----
+
+
 == Conclusions
 
 == About the Authors
