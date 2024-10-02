@@ -15,9 +15,11 @@
  */
 package com.savoir.modulith;
 
+import com.savoir.modulith.game.api.ActiveGames;
 import com.savoir.modulith.game.api.Game;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.event.ActionEvent;
@@ -170,7 +172,15 @@ public class ModulithGame extends Application {
                 }
                 choiceDialog.setTitle("Find Game");
                 //TODO get available gets from server
-                choiceDialog = new ChoiceDialog<>(UUID.randomUUID().toString(),UUID.randomUUID().toString());
+                ActiveGames activeGames = null;
+                try {
+                    WebClient webClient = WebClient.create("http://localhost:8181/cxf/game/getActiveGames");
+                    Response respGet = webClient.get();
+                    activeGames = respGet.readEntity(ActiveGames.class);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                choiceDialog = buildChoiceDialog(activeGames);
                 Optional<String> result = choiceDialog.showAndWait();
                 result.ifPresent(s -> gameId = s);
                 output.clear();
@@ -190,5 +200,19 @@ public class ModulithGame extends Application {
         m2.setOnAction(joinGame);
         m3.setOnAction(exitGame);
         return m;
+    }
+
+    private ChoiceDialog<String> buildChoiceDialog(ActiveGames activeGames) {
+        if (activeGames.getActiveGames().isEmpty()) {
+            return new ChoiceDialog<>();
+        }
+        if (activeGames.getActiveGames().size() == 1) {
+            return new ChoiceDialog<>(activeGames.getActiveGames().get(0).getId());
+        }
+        String firstId = activeGames.getActiveGames().get(0).getId();
+        List<Game> remaingGames = activeGames.getActiveGames().subList(1, activeGames.getActiveGames().size());
+        List<String> otherGames = new ArrayList<>();
+        remaingGames.stream().map(Game::getId).forEach(otherGames::add);
+        return new ChoiceDialog<>(firstId, otherGames);
     }
 }

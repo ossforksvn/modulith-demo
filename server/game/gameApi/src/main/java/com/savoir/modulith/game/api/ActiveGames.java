@@ -18,27 +18,32 @@ package com.savoir.modulith.game.api;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.util.UUID;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "game")
+@XmlRootElement(name = "activeGames")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-@JsonTypeName(value = "game")
-@JsonRootName(value = "game")
-public class Game {
+@JsonTypeName(value = "activeGames")
+@JsonRootName(value = "activeGames")
+public class ActiveGames {
 
     @XmlElement(required = true)
-    private String id;
+    private List<Game> activeGames;
 
-    public Game() {
-        this.id = UUID.randomUUID().toString();
+    /**
+     * No-arg default constructor
+     */
+    public ActiveGames() {}
+
+    public ActiveGames(List<Game> activeGames) {
+        this.activeGames = activeGames;
     }
 
-    public String getId() {
-        return id;
+    public List<Game> getActiveGames() {
+        return activeGames;
     }
 }

@@ -15,12 +15,17 @@
  */
 package com.savoir.modulith.game.impl;
 
+import com.savoir.modulith.game.api.ActiveGames;
 import com.savoir.modulith.game.api.GameService;
 import com.savoir.modulith.game.api.Game;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import org.slf4j.Logger;
@@ -31,6 +36,11 @@ public class GameServiceImpl implements GameService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameServiceImpl.class);
 
+    private ConcurrentHashMap<String, Game> games = new ConcurrentHashMap<>();
+
+    public GameServiceImpl() {
+        //Empty Constructor
+    }
 
     @Override
     @Path("/newGame")
@@ -38,24 +48,66 @@ public class GameServiceImpl implements GameService {
     @GET
     public Game newGame() {
         LOGGER.info("newGame");
-        return new Game();
+        Game game = new Game();
+        games.put(game.getId(), game);
+        return game;
     }
 
     @Override
-    @Path("/joinGame")
+    @Path("/joinActiveGame")
     @Produces("application/json")
     @GET
-    public Game joinGame(String gameId) {
+    public Game joinActiveGame(String gameId) {
         LOGGER.info("Join game: " + gameId.toString());
-        return new Game(); //TODO get state.
+        Game game = games.get(gameId);
+        return game;
     }
 
     @Override
     @Path("/getActiveGames")
     @Produces("application/json")
     @GET
-    public List<Game> getActiveGames() {
+    public ActiveGames getActiveGames() {
         LOGGER.info("Get active games.");
-        return List.of();
+        ActiveGames activeGames = new ActiveGames(new ArrayList<>(games.values()));
+        return activeGames;
+    }
+
+    @Override
+    @Path("/updateGame")
+    @PUT
+    public void updateGame(Game game) {
+        LOGGER.info("Update game: " + game.getId());
+        Game runningGame = games.get(game.getId());
+        if (runningGame != null) {
+            //Update game
+        }
+    }
+
+    @Override
+    @Path("/endGame")
+    @DELETE
+    public void endGame(String gameId) {
+        LOGGER.info("End game: " + gameId);
+        games.remove(gameId);
+    }
+
+    @Override
+    @Path("/sendGameMessage")
+    @Consumes("application/json")
+    @POST
+    public void sendGameMessage(String gameId, String message) {
+        LOGGER.info("Send game: " + gameId + " message: " + message);
+        //TODO Send to some service.
+    }
+
+    @Override
+    @Path("/getGameMessage")
+    @Produces("text/plain")
+    @GET
+    public String getGameMessage(String gameId) {
+        LOGGER.info("Get game message for: " + gameId);
+        //TODO get from some service.
+        return "Message for game: " + gameId;
     }
 }

@@ -15,13 +15,22 @@
  */
 package com.savoir.modulith.game.api;
 
-import java.util.List;
-
+/**
+ * Game Service
+ */
 public interface GameService {
 
     Game newGame();
 
-    Game joinGame(String gameId);
+    Game joinActiveGame(String gameId);
 
-    List<Game> getActiveGames();
+    ActiveGames getActiveGames();
+
+    void updateGame(Game game);
+
+    void endGame(String gameId);
+
+    void sendGameMessage(String gameId, String message);
+
+    String getGameMessage(String gameId);
 }
