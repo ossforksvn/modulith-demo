@@ -38,9 +38,11 @@ public class GameServiceImpl implements GameService {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameServiceImpl.class);
 
     private GameStore gameStore;
+    private MessageStore messageStore;
 
-    public GameServiceImpl(GameStore gameStore) {
+    public GameServiceImpl(GameStore gameStore, MessageStore messageStore) {
         this.gameStore = gameStore;
+        this.messageStore = messageStore;
     }
 
     @Override
@@ -115,17 +117,17 @@ public class GameServiceImpl implements GameService {
     @POST
     public void sendGameMessage(GameMessage gameMessage) {
         LOGGER.info("Send game: " + gameMessage.getGameId() + " message: " + gameMessage.getMessage());
-        //TODO Send to some service.
+        messageStore.putMessage(gameMessage.getGameId(), gameMessage.getMessage());
     }
 
     @Override
-    @Path("/getGameMessage")
+    @Path("/gameMessage")
     @Produces("text/plain")
-    @GET
+    @Consumes("application/json")
+    @POST
     public String getGameMessage(String gameId) {
         LOGGER.info("Get game message for: " + gameId);
-        //TODO get from some service.
-        return "Message for game: " + gameId;
+        return messageStore.getMessage(gameId);
     }
 
     @Override

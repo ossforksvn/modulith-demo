@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.application.Preloader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -113,7 +114,7 @@ public class ModulithGame extends Application {
 
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                sendChatMessage();
+                sendChatMessage(isChallenger ? HOST : CHALLENGER);
                 input.setText("");
             }
         };
@@ -139,8 +140,10 @@ public class ModulithGame extends Application {
                     if (!isChallenger) {
                         output.appendText("Host has setup Battlemap, awaiting challenger\n");
                         startTwoPlayerGame();
-                        output.appendText("Challenger has joined !!!");
+                        output.appendText("Challenger has joined !!!\n");
                         registerGameBoard(HOST + gameId, player.getBoard().toString());
+                        output.appendText("Initiating chat...\n");
+                        listenToChatThread(HOST);
                     } else {
                         ourGame.setChallengerName(userName);
                         ourGame.setShipsPlaced(true);
@@ -148,6 +151,8 @@ public class ModulithGame extends Application {
                         output.appendText("Host is ready to play you, Challenger.\n");
                         running = true;
                         registerGameBoard(CHALLENGER + gameId, player.getBoard().toString());
+                        output.appendText("Initiating chat...\n");
+                        listenToChatThread(CHALLENGER);
                     }
                 }
             }
@@ -240,17 +245,49 @@ public class ModulithGame extends Application {
         return rightNow.isHostTurn();
     }
 
+    private void listenToChatThread(String role) {
+        new Thread(() -> {
+            while (running) {
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        String message = getChatMessage(role);
+                        if (message != null && !message.isEmpty()) {
+                            output.appendText(message + "\n");
+                        }
+                    }
+                });
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+    }
+
     //CXF CALLS
-    private void sendChatMessage() {
+    private void sendChatMessage(String role) {
         try {
             WebClient webClient = WebClient.create(host + "/cxf/game/sendGameMessage")
                     .accept(MediaType.APPLICATION_JSON)
                     .type(MediaType.APPLICATION_JSON);;
-            GameMessage gameMessage = new GameMessage(gameId, input.getText());
+            GameMessage gameMessage = new GameMessage(role + gameId, input.getText());
             ObjectMapper mapper = new ObjectMapper();
             webClient.post(mapper.writeValueAsString(gameMessage));
         } catch (Exception ignored) {
             //Ignore
+        }
+    }
+
+    private String getChatMessage(String role) {
+        try {
+            WebClient webClient = WebClient.create(host + "/cxf/game/gameMessage")
+                    .accept(MediaType.TEXT_PLAIN)
+                    .type(MediaType.APPLICATION_JSON);;
+            Response respGet = webClient.post(role + gameId);
+            return respGet.readEntity(String.class);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 
