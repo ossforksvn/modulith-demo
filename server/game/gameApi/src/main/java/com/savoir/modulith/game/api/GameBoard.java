@@ -18,32 +18,36 @@ package com.savoir.modulith.game.api;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "activeGames")
+@XmlRootElement(name = "gameBoard")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-@JsonTypeName(value = "activeGames")
-@JsonRootName(value = "activeGames")
-public class ActiveGames {
+@JsonTypeName(value = "gameBoard")
+@JsonRootName(value = "gameBoard")
+public class GameBoard {
 
     @XmlElement(required = true)
-    private List<String> activeGames;
+    private String gameId;
 
-    /**
-     * No-arg default constructor
-     */
-    public ActiveGames() {}
+    @XmlElement(required = true)
+    private String board;
 
-    public ActiveGames(List<String> activeGames) {
-        this.activeGames = activeGames;
+    public GameBoard() {}
+
+    public GameBoard(String gameId, String board) {
+        this.gameId = gameId;
+        this.board = board;
     }
 
-    public List<String> getActiveGames() {
-        return activeGames;
+    public String getGameId() {
+        return gameId;
+    }
+
+    public String getBoard() {
+        return board;
     }
 }

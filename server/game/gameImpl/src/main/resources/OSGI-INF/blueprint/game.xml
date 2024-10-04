@@ -42,7 +42,11 @@
     </jaxrs:server>
 
     <bean id="gameBean" class="com.savoir.modulith.game.impl.GameServiceImpl">
+        <argument ref="gameStore"/>
+    </bean>
 
+    <bean id="gameStore" class="com.savoir.modulith.game.impl.GameStore"
+          scope="singleton">
     </bean>
 
 </blueprint>

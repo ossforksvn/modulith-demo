@@ -18,7 +18,6 @@ package com.savoir.modulith.game.api;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,11 +33,81 @@ public class Game {
     @XmlElement(required = true)
     private String id;
 
+    @XmlElement(required = false)
+    private String challengerName;
+
+    @XmlElement(required = true)
+    private boolean shipsPlaced;
+
+    @XmlElement(required = true)
+    private boolean hostTurn;
+
+    @XmlElement(required = false)
+    private int x;
+
+    @XmlElement(required = false)
+    private int y;
+
     public Game() {
-        this.id = UUID.randomUUID().toString();
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getChallengerName() {
+        return challengerName;
+    }
+
+    public boolean isShipsPlaced() {
+        return shipsPlaced;
+    }
+
+    public boolean isHostTurn() {
+        return hostTurn;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setChallengerName(String challengerName) {
+        this.challengerName = challengerName;
+    }
+
+    public void setShipsPlaced(boolean shipsPlaced) {
+        this.shipsPlaced = shipsPlaced;
+    }
+
+    public void setHostTurn(boolean hostTurn) {
+        this.hostTurn = hostTurn;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id='" + id + '\'' +
+                ", challengerName='" + challengerName + '\'' +
+                ", shipsPlaced=" + shipsPlaced +
+                ", hostTurn=" + hostTurn +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

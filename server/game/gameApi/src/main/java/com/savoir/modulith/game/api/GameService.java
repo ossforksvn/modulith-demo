@@ -28,9 +28,17 @@ public interface GameService {
 
     void updateGame(Game game);
 
+    Game gameState(String gameId);
+
     void endGame(String gameId);
 
     void sendGameMessage(GameMessage gameMessage);
 
     String getGameMessage(String gameId);
+
+    void registerGameBoard(GameBoard gameBoard);
+
+    String gameBoard(String gameId);
+
+    void removeGameBoard(String gameId);
 }

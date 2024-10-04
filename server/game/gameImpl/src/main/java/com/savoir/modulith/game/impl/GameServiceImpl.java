@@ -16,12 +16,12 @@
 package com.savoir.modulith.game.impl;
 
 import com.savoir.modulith.game.api.ActiveGames;
+import com.savoir.modulith.game.api.GameBoard;
 import com.savoir.modulith.game.api.GameMessage;
 import com.savoir.modulith.game.api.GameService;
 import com.savoir.modulith.game.api.Game;
 
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.UUID;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -37,10 +37,10 @@ public class GameServiceImpl implements GameService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameServiceImpl.class);
 
-    private ConcurrentHashMap<String, Game> games = new ConcurrentHashMap<>();
+    private GameStore gameStore;
 
-    public GameServiceImpl() {
-        //Empty Constructor
+    public GameServiceImpl(GameStore gameStore) {
+        this.gameStore = gameStore;
     }
 
     @Override
@@ -50,7 +50,8 @@ public class GameServiceImpl implements GameService {
     public Game newGame() {
         LOGGER.info("newGame");
         Game game = new Game();
-        games.put(game.getId(), game);
+        game.setId(UUID.randomUUID().toString());
+        gameStore.put(game.getId(), game);
         return game;
     }
 
@@ -60,7 +61,7 @@ public class GameServiceImpl implements GameService {
     @GET
     public Game joinActiveGame(String gameId) {
         LOGGER.info("Join game: " + gameId.toString());
-        Game game = games.get(gameId);
+        Game game = gameStore.get(gameId);
         return game;
     }
 
@@ -70,7 +71,7 @@ public class GameServiceImpl implements GameService {
     @GET
     public ActiveGames getActiveGames() {
         LOGGER.info("Get active games.");
-        ActiveGames activeGames = new ActiveGames(new ArrayList<>(games.values()));
+        ActiveGames activeGames = new ActiveGames(gameStore.values());
         return activeGames;
     }
 
@@ -79,10 +80,25 @@ public class GameServiceImpl implements GameService {
     @PUT
     public void updateGame(Game game) {
         LOGGER.info("Update game: " + game.getId());
-        Game runningGame = games.get(game.getId());
+        Game runningGame = gameStore.get(game.getId());
         if (runningGame != null) {
-            //Update game
+            gameStore.remove(game.getId());
+            gameStore.put(game.getId(), game);
         }
+    }
+
+    @Override
+    @Path("/gameState")
+    @Produces("application/json")
+    @Consumes("application/json")
+    @POST
+    public Game gameState(String gameId) {
+        LOGGER.info("Find game: " + gameId);
+        if (gameId == null) {
+            LOGGER.info("Must supply non-null game id");
+        }
+        LOGGER.info("Game: " + gameStore.get(gameId));
+        return gameStore.get(gameId);
     }
 
     @Override
@@ -90,7 +106,7 @@ public class GameServiceImpl implements GameService {
     @DELETE
     public void endGame(String gameId) {
         LOGGER.info("End game: " + gameId);
-        games.remove(gameId);
+        gameStore.remove(gameId);
     }
 
     @Override
@@ -110,5 +126,33 @@ public class GameServiceImpl implements GameService {
         LOGGER.info("Get game message for: " + gameId);
         //TODO get from some service.
         return "Message for game: " + gameId;
+    }
+
+    @Override
+    @Path("/registerGameBoard")
+    @Consumes("application/json")
+    @POST
+    public void registerGameBoard(GameBoard gameBoard) {
+        LOGGER.info("Register game board: " + gameBoard.getGameId() + " board: " + gameBoard.getBoard());
+        gameStore.addBoard(gameBoard.getGameId(), gameBoard.getBoard());
+    }
+
+    @Override
+    @Path("/gameBoard")
+    @Produces("text/plain")
+    @Consumes("application/json")
+    @POST
+    public String gameBoard(String gameId) {
+        LOGGER.info("Get game board for: " + gameId);
+        LOGGER.info("Board: " + gameStore.getBoard(gameId));
+        return gameStore.getBoard(gameId);
+    }
+
+    @Override
+    @Path("/removeGameBoard")
+    @DELETE
+    public void removeGameBoard(String id) {
+        LOGGER.info("Remove board: " + id);
+        gameStore.removeBoard(id);
     }
 }
