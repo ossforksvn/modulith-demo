@@ -36,33 +36,33 @@
             <condition>cxf-core</condition>
             <condition>cxf-jaxrs</condition>
             <condition>war</condition>
+            <bundle>mvn:com.savoir.modulith/gameApi/${project.version}</bundle>
+            <bundle>mvn:com.savoir.modulith/datastoreApi/${project.version}</bundle>
+            <bundle>mvn:com.savoir.modulith/datastoreImpl/${project.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
-            <bundle dependency="true">mvn:com.savoir.modulith/gameApi/${project.version}</bundle>
-            <bundle dependency="true">mvn:com.savoir.modulith/datastoreApi/${project.version}</bundle>
-            <bundle dependency="true">mvn:com.savoir.modulith/datastoreImpl/${project.version}</bundle>
         </conditional>
     </feature>
 
     <feature name="modulith-admin" version="${project.version}">
-        <bundle dependency="true">mvn:com.savoir.modulith/adminApi/${project.version}</bundle>
-        <bundle dependency="true">mvn:com.savoir.modulith/adminImpl/${project.version}</bundle>
-        <bundle dependency="true">
+        <bundle>mvn:com.savoir.modulith/adminApi/${project.version}</bundle>
+        <bundle>mvn:com.savoir.modulith/adminImpl/${project.version}</bundle>
+        <bundle>
             webbundle:mvn:com.savoir.modulith/adminWar/${project.version}/war?Web-ContextPath=admin-console
         </bundle>
     </feature>
 
     <feature name="modulith-game" version="${project.version}">
-        <bundle dependency="true">mvn:com.savoir.modulith/gameImpl/${project.version}</bundle>
+        <bundle>mvn:com.savoir.modulith/gameImpl/${project.version}</bundle>
     </feature>
 
     <feature name="modulith-home" version="${project.version}">
-        <bundle dependency="true">mvn:com.savoir.modulith/homeApi/${project.version}</bundle>
-        <bundle dependency="true">mvn:com.savoir.modulith/homeImpl/${project.version}</bundle>
-        <bundle dependency="true">
+        <bundle>mvn:com.savoir.modulith/homeApi/${project.version}</bundle>
+        <bundle>mvn:com.savoir.modulith/homeImpl/${project.version}</bundle>
+        <bundle>
             webbundle:mvn:com.savoir.modulith/homeWar/${project.version}/war?Web-ContextPath=home
         </bundle>
     </feature>
