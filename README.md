@@ -160,6 +160,6 @@ the Blog, or through the Savoir Technologies website at
 
 # With Thanks
 
-Thank you to the Apache Karaf, CXF, ActiveMQ, and Camel communities.
+Thank you to the Apache Karaf, and CXF communities.
 
 \(c\) 2024 Savoir Technologies
