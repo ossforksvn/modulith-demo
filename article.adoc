@@ -6,7 +6,6 @@ In this demo repo we implement a Client-Server for a board game, using a modular
 
 Modular monoliths allow the operator to keep things simple in terms of deployment (compared to managing multiple microservices), and changes/updates can by deployed more efficiently as only specific modules/components need to be updated.
 
-
 image::./assets/images/ModulithDiagram.png[alt=Modulith,width=280,height=320,align="center"]
 
 == The Game, Architecture & Technology Stack
