@@ -79,6 +79,19 @@ simplify installing our demo.
 Apache CXF is an open source software project developing a Web services
 framework.
 
+``` java
+private ActiveGames getActiveGames() {
+    try {
+        WebClient webClient = WebClient.create(host + "/cxf/game/getActiveGames")
+                .accept(MediaType.APPLICATION_JSON);
+        Response respGet = webClient.get();
+        return respGet.readEntity(ActiveGames.class);
+    } catch (Exception ex) {
+        throw new RuntimeException(ex);
+    }
+}
+```
+
 We use Apache CXF’s WebClient to use our Game server’s RESTful
 endpoints.
 
