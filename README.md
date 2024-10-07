@@ -1,7 +1,10 @@
 # Modulith Demo
 
-In this demo repo we implement a Client-Server for a board game, using a
-modular monolith as the backend architecture.
+The purpose of this demo is to illustrate the modular monolith
+(modulith) architectural style, and the Apache
+frameworks/libraries/runtimes that help build them. To help make this
+demo concrete, we implement a Client-Server for a board game, using a
+modular monolith as the backend server architecture.
 
 ## Why a modular monolith?
 
@@ -17,10 +20,6 @@ modules/components need to be updated.
 # The Game, Architecture & Technology Stack
 
 ## The Game
-
-The purpose of this demo is to illustrate the modular monolith
-(modulith) architectural style, and the Apache
-frameworks/libraries/runtimes that help build them.
 
 Our demo takes the form of a board game with the ability to play other
 players via a game server.
