@@ -61,3 +61,24 @@ START LEVEL 100 , List Threshold: 50
 129 │ Active │  80 │ 1.0.0.SNAPSHOT │ Modulith Demo :: home :: Impl
 karaf@root()> 
 ```
+
+## Testing our APIs
+
+Verify Admin Service:
+
+``` bash
+curl -X GET -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/admin/status"
+```
+
+Verify Game Service:
+
+``` bash
+ curl -X GET -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/game/newGame"
+```
+
+Verify the message service:
+
+``` bash
+curl -X POST -H "Content-type: application/json" -H "Accept: application/json" "http://127.0.0.1:8181/cxf/game/sendGameMessage" --data "{\"gameMessage\":{\"gameId\":\"123\",\"message\":\
+"test\"}}"
+```
