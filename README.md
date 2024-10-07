@@ -64,6 +64,20 @@ fashion each BFF may avail of the common datasource.
 The Server side also contains a pair of Web bundles, these manage WAR
 file & their infrastructure.
 
+<figure>
+<img src="./assets/images/Scaling.png" alt="Scaling" />
+</figure>
+
+### Scaling out
+
+As our application has been built to be split up along domains, we can
+trivially break our modulith into smaller systems to achieve runtime
+goals - perhaps we only need 1 or 2 JVMs supplying Home and Admin
+webpages, but many game servers. Alternatively, the whole system could
+be redeployed on larger hardware. This does not preclude using
+Dockers/K8s to orchestrate along microservices principles - we have some
+additional flexibility.
+
 ## Apache Karaf: Modulith Runtime
 
 Karaf is the modulith runtime, supporting a wide range of frameworks and
