@@ -42,7 +42,9 @@
     </jaxrs:server>
 
     <bean id="adminBean" class="com.savoir.modulith.admin.impl.AdminServiceImpl">
-
+        <argument ref="gameStore"/>
     </bean>
+
+    <reference id="gameStore" interface="com.savoir.modulith.datastore.api.GameStore"/>
 
 </blueprint>

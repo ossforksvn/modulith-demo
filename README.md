@@ -9,15 +9,31 @@
 The purpose of this demo is to illustrate various architectural designs,
 and the Apache frameworks/libraries/runtimes that help build them.
 
-## Modulith: A Modular Monolith
-
 ## Apache Karaf: Modulith Runtime
 
 ## Apache CXF: JAX-RS
 
+### JAX-RS WebClient
+
 ## JavaFX
 
+### Java Native GUI
+
 # Build and run the demo.
+
+## Server
+
+``` bash
+cd server
+mvn clean install
+```
+
+## Client
+
+``` bash
+cd client
+mvn clean install
+```
 
 ## Test APIs
 

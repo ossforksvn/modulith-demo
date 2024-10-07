@@ -41,7 +41,13 @@
         <dependency>
             <groupId>com.savoir.modulith</groupId>
             <artifactId>homeApi</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.savoir.modulith</groupId>
+            <artifactId>datastoreApi</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -46,12 +46,8 @@
         <argument ref="messageStore"/>
     </bean>
 
-    <bean id="gameStore" class="com.savoir.modulith.game.impl.GameStore"
-          scope="singleton">
-    </bean>
+    <reference id="gameStore" interface="com.savoir.modulith.datastore.api.GameStore"/>
 
-    <bean id="messageStore" class="com.savoir.modulith.game.impl.MessageStore"
-          scope="singleton">
-    </bean>
+    <reference id="messageStore" interface="com.savoir.modulith.datastore.api.MessageStore"/>
 
 </blueprint>

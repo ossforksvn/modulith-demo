@@ -41,6 +41,9 @@
             <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
             <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
+            <bundle dependency="true">mvn:com.savoir.modulith/gameApi/${project.version}</bundle>
+            <bundle dependency="true">mvn:com.savoir.modulith/datastoreApi/${project.version}</bundle>
+            <bundle dependency="true">mvn:com.savoir.modulith/datastoreImpl/${project.version}</bundle>
         </conditional>
     </feature>
 
@@ -53,7 +56,6 @@
     </feature>
 
     <feature name="modulith-game" version="${project.version}">
-        <bundle dependency="true">mvn:com.savoir.modulith/gameApi/${project.version}</bundle>
         <bundle dependency="true">mvn:com.savoir.modulith/gameImpl/${project.version}</bundle>
     </feature>
 

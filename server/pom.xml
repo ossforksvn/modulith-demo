@@ -49,10 +49,8 @@
     </properties>
 
     <modules>
-        <!-- Common Models -->
-        <module>models</module>
-        <!-- Common Services -->
-        <module>services</module>
+        <!-- Datastore -->
+        <module>datastore</module>
 
         <!-- Game API and Impl -->
         <module>game</module>

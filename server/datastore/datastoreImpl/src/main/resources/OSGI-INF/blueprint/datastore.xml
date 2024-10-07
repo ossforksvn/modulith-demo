@@ -26,25 +26,16 @@
              http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd
              ">
 
-    <cxf:bus>
-        <cxf:features>
-            <cxf:logging/>
-        </cxf:features>
-    </cxf:bus>
-
-    <jaxrs:server id="admin" address="/home">
-        <jaxrs:serviceBeans>
-            <ref component-id="homeBean" />
-        </jaxrs:serviceBeans>
-        <jaxrs:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
-        </jaxrs:providers>
-    </jaxrs:server>
-
-    <bean id="homeBean" class="com.savoir.modulith.home.impl.HomeServiceImpl">
-        <argument ref="gameStore"/>
+    <bean id="gameStore" class="com.savoir.modulith.datastore.impl.GameStoreImpl" scope="singleton">
     </bean>
 
-    <reference id="gameStore" interface="com.savoir.modulith.datastore.api.GameStore"/>
+    <bean id="messageStore" class="com.savoir.modulith.datastore.impl.MessageStoreImpl" scope="singleton">
+    </bean>
+
+    <service interface="com.savoir.modulith.datastore.api.GameStore" ref="gameStore">
+    </service>
+
+    <service interface="com.savoir.modulith.datastore.api.MessageStore" ref="messageStore">
+    </service>
 
 </blueprint>

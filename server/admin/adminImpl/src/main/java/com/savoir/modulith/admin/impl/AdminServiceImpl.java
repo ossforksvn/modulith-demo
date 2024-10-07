@@ -18,6 +18,7 @@ package com.savoir.modulith.admin.impl;
 import com.savoir.modulith.admin.api.AdminService;
 import com.savoir.modulith.admin.api.StatusResponse;
 
+import com.savoir.modulith.datastore.api.GameStore;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import org.slf4j.Logger;
@@ -30,12 +31,20 @@ public class AdminServiceImpl implements AdminService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 
+    private GameStore gameStore;
+
+    public AdminServiceImpl(GameStore gameStore) {
+        this.gameStore = gameStore;
+    }
+
     @Override
     @Path("/status")
     @Produces("application/json")
     @GET
     public StatusResponse getStatus() {
         LOGGER.info("getStatus");
-        return new StatusResponse(0,0);
+        int gamesPlayed = gameStore.getGamesPlayedCount();
+        int activeGames = gameStore.getActiveGamesCount();
+        return new StatusResponse(activeGames, gamesPlayed);
     }
 }

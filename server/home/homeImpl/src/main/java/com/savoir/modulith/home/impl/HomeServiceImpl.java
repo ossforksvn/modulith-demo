@@ -15,6 +15,7 @@
  */
 package com.savoir.modulith.home.impl;
 
+import com.savoir.modulith.datastore.api.GameStore;
 import com.savoir.modulith.home.api.HomeService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,12 +28,18 @@ public class HomeServiceImpl implements HomeService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeServiceImpl.class);
 
+    private GameStore gameStore;
+
+    public HomeServiceImpl(GameStore gameStore) {
+        this.gameStore = gameStore;
+    }
+
     @Override
     @Path("/getActiveGamesCount")
     @Produces("application/json")
     @GET
     public int getActiveGamesCount() {
         LOGGER.info("getActiveGamesCount");
-        return 0;
+        return gameStore.getActiveGamesCount();
     }
 }

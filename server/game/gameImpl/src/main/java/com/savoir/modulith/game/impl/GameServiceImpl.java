@@ -15,6 +15,8 @@
  */
 package com.savoir.modulith.game.impl;
 
+import com.savoir.modulith.datastore.api.GameStore;
+import com.savoir.modulith.datastore.api.MessageStore;
 import com.savoir.modulith.game.api.ActiveGames;
 import com.savoir.modulith.game.api.GameBoard;
 import com.savoir.modulith.game.api.GameMessage;
@@ -53,6 +55,7 @@ public class GameServiceImpl implements GameService {
         LOGGER.info("newGame");
         Game game = new Game();
         game.setId(UUID.randomUUID().toString());
+        gameStore.incrementGamesPlayedCount();
         gameStore.put(game.getId(), game);
         return game;
     }
