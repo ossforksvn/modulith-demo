@@ -2,6 +2,10 @@ Client
 ==
 
  Our Client is implement using JavaFX 23.
+
+<figure>
+<img src="../assets/images/GamePlay.png" alt="GameInPlay" />
+</figure>
  
 Dependencies
 === 

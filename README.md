@@ -13,13 +13,17 @@ and the Apache frameworks/libraries/runtimes that help build them.
 
 ## Apache CXF: JAX-RS
 
-### JAX-RS WebClient
-
 ## JavaFX
 
-### Java Native GUI
+<figure>
+<img src="./assets/images/GamePlay.png" alt="GamePlay" />
+</figure>
 
 # Build and run the demo.
+
+The client and server projects are both Maven based, as such one need
+only source JAVA_HOME, and MAVEN_HOME, and make both available on their
+PATH.
 
 ## Server
 
