@@ -70,6 +70,18 @@ file & their infrastructure.
 Karaf is the modulith runtime, supporting a wide range of frameworks and
 technologies.
 
+``` xml
+<feature name="modulith-demo" version='${project.version}'>
+    <feature version="${project.version}">_modulith-application-deps</feature>
+    <conditional>
+        <condition>_modulith-application-deps</condition>
+        <feature version="${project.version}">modulith-admin</feature>
+        <feature version="${project.version}">modulith-home</feature>
+        <feature version="${project.version}">modulith-game</feature>
+    </conditional>
+</feature>
+```
+
 We use Apache Karaf’s OSGi support for deployment, and runtime wiring.
 We also make use of Apache Karaf feature descriptor file to help
 simplify installing our demo.
