@@ -42,7 +42,11 @@ chat messages are between the host and challenger.
 The Client is implemented using JavaFX, and utilizes the Game server’s
 REST endpoints via Apache CXF WebClient.
 
-Our Server is designed as a set of Backend-For-Front end applications.
+<figure>
+<img src="./assets/images/BFF.png" alt="BFF" />
+</figure>
+
+Our Server is designed as a set of Backend-For-Frontend applications.
 
 - Game - The core Game Server, and its RESTful endpoints.
 
