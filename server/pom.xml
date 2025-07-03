@@ -23,10 +23,11 @@
 
 
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.savoir.modulith</groupId>
     <artifactId>modulith</artifactId>
-    <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>Modulith-Demo</name>
     <description>Modulith Architecture Demo</description>
@@ -96,7 +97,14 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

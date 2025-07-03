@@ -29,8 +29,9 @@
     </parent>
 
     <artifactId>admin</artifactId>
-    <description>Modulith Demo :: admin</description>
     <packaging>pom</packaging>
+
+    <description>Modulith Demo :: admin</description>
 
     <properties>
     </properties>

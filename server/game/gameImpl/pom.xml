@@ -24,7 +24,7 @@
 
     <parent>
         <groupId>com.savoir.modulith</groupId>
-        <artifactId>modulith</artifactId>
+        <artifactId>game</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 

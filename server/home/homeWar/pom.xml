@@ -24,15 +24,15 @@
 
     <parent>
         <groupId>com.savoir.modulith</groupId>
-        <artifactId>modulith</artifactId>
+        <artifactId>home</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>homeWar</artifactId>
+    <packaging>war</packaging>
 
     <name>Modulith Demo :: home :: WAR</name>
     <description>Home WAR</description>
-    <packaging>war</packaging>
 
     <properties>
     </properties>

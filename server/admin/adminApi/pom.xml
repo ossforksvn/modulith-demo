@@ -29,10 +29,10 @@
     </parent>
 
     <artifactId>adminApi</artifactId>
+    <packaging>bundle</packaging>
 
     <name>Modulith Demo :: admin :: API</name>
     <description>Admin API</description>
-    <packaging>bundle</packaging>
 
     <properties>
     </properties>
